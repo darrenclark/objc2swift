@@ -35,6 +35,7 @@ extension ASTConverter {
 		assert(segments.count >= 1)
 		
 		let name = segments.first!
+		let returns = cursor.resultType.spelling
 		let arguments: [FunctionArgDecl]
 		
 		let rawArgs = readArguments(cursor)
@@ -54,7 +55,7 @@ extension ASTConverter {
 			arguments = []
 		}
 		
-		return ASTNode.InstanceMethodDecl(name: name, args: arguments)
+		return ASTNode.InstanceMethodDecl(name: name, returns: returns, args: arguments)
 	}
 	
 	func readArguments(cursor: Cursor) -> [(name: String, type: String)] {

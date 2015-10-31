@@ -19,8 +19,8 @@ extension CodeGenerator {
 		case let .ClassImpl(name: name, children: children):
 			writeClass(name: name, children: children)
 			
-		case let .InstanceMethodDecl(name: name, args: arguments):
-			writeInstanceMethodDecl(name: name, arguments: arguments)
+		case let .InstanceMethodDecl(name: name, returns: returns, args: arguments):
+			writeInstanceMethodDecl(name: name, returns: returns, arguments: arguments)
 		}
 	}
 }
@@ -42,7 +42,7 @@ extension CodeGenerator {
 		
 	}
 	
-	func writeInstanceMethodDecl(name name: String, arguments: [FunctionArgDecl]) {
+	func writeInstanceMethodDecl(name name: String, returns: String, arguments: [FunctionArgDecl]) {
 		insertIndent()
 		outputStream.write("func \(name)(")
 		
@@ -57,7 +57,7 @@ extension CodeGenerator {
 		.joinWithSeparator(", ")
 		
 		outputStream.write(argumentsString)
-		outputStream.write(") { }\n")
+		outputStream.write(") -> \(returns) { }\n")
 	}
 }
 
