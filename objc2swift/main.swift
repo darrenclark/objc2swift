@@ -14,11 +14,10 @@ let index = Index(excludeDeclarationsFromPCH: true, displayDiagnostics: false)
 do {
 	let tu = try TranslationUnit(index: index, path: file)
 	
-	let outputStream = StringOutputStream()
-	let converter = Converter(outputStream: outputStream)
+	let converter = ASTConverter()
 	converter.convertTranslationUnit(tu)
 	
-	print(outputStream.stringValue)
+	print(converter.nodes)
 }
 catch {
 	exit(EXIT_FAILURE)
