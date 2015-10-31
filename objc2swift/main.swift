@@ -10,18 +10,15 @@ import Foundation
 
 let file = Process.arguments[1]
 
-
 let index = Index(excludeDeclarationsFromPCH: true, displayDiagnostics: false)
 do {
 	let tu = try TranslationUnit(index: index, path: file)
 	
-	tu.cursor.visitChildren { cursor, parent in
-		if cursor.kind == .ObjCImplementationDecl {
-			print("Class implementation found!: \(cursor.spelling)")
-		}
-		
-		return .Recurse
-	}
+	let outputStream = StringOutputStream()
+	let converter = Converter(outputStream: outputStream)
+	converter.convertTranslationUnit(tu)
+	
+	print(outputStream.stringValue)
 }
 catch {
 	exit(EXIT_FAILURE)
