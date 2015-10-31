@@ -11,8 +11,8 @@ struct Cursor {
 
 extension Cursor {
 	
-	var kind: CXCursorKind {
-		return clang_getCursorKind(raw)
+	var kind: CursorKind {
+		return CursorKind(rawValue: clang_getCursorKind(raw))!
 	}
 	
 	var spelling: String {

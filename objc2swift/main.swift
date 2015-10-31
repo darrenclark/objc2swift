@@ -16,7 +16,7 @@ do {
 	let tu = try TranslationUnit(index: index, path: file)
 	
 	tu.cursor.visitChildren { cursor, parent in
-		if cursor.kind == CXCursor_ObjCImplementationDecl {
+		if cursor.kind == .ObjCImplementationDecl {
 			print("Class implementation found!: \(cursor.spelling)")
 		}
 		
