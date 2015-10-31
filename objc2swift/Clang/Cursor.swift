@@ -60,3 +60,19 @@ extension Cursor {
 	}
 	
 }
+
+
+//MARK: Debugging
+extension Cursor: CustomDebugStringConvertible {
+	var debugDescription: String {
+		var retVal = "\(kind) - \(spelling)\n"
+		
+		for child in children {
+			child.debugDescription.enumerateLines { line, _ in
+				retVal += "\t\(line)\n"
+			}
+		}
+		
+		return retVal
+	}
+}
