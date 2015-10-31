@@ -8,21 +8,14 @@
 
 import Foundation
 
-let index = clang_createIndex(1, 0)
-defer {
-	clang_disposeIndex(index)
-}
-
 let file = Process.arguments[1]
 
-let tu = clang_createTranslationUnitFromSourceFile(index, file, 0, nil, 0, nil)
-if tu != nil {
-	defer {
-		clang_disposeTranslationUnit(tu)
-	}
+
+let index = Index(excludeDeclarationsFromPCH: true, displayDiagnostics: false)
+do {
+	let tu = try TranslationUnit(index: index, path: file)
 	
-	clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(tu)) { cursor, parent in
-		
+	tu.cursor.visitChildren { cursor, parent in
 		if clang_getCursorKind(cursor) == CXCursor_ObjCImplementationDecl {
 			let cxname = clang_getCursorSpelling(cursor)
 			defer {
@@ -35,8 +28,9 @@ if tu != nil {
 			print("Class implementation found!: \(name)")
 		}
 		
-		return CXChildVisit_Recurse
+		return .Recurse
 	}
-	
-	
+}
+catch {
+	exit(EXIT_FAILURE)
 }
