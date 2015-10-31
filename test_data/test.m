@@ -5,9 +5,8 @@
 
 @implementation TestClass
 
-- (int)double:(int)value {
-	int x = 5;
-	return value + value;
+- (int)add:(int)value to:(int)otherValue {
+	return value + otherValue;
 }
 
 @end

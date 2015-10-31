@@ -19,6 +19,7 @@
 		95DAFA3E1BE4F77700085EE6 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA3D1BE4F77700085EE6 /* Converter.swift */; settings = {ASSET_TAGS = (); }; };
 		95DAFA421BE4FA7D00085EE6 /* StringOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA411BE4FA7D00085EE6 /* StringOutputStream.swift */; settings = {ASSET_TAGS = (); }; };
 		95DAFA441BE4FB2700085EE6 /* OutputStreamTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA431BE4FB2700085EE6 /* OutputStreamTypeExtensions.swift */; settings = {ASSET_TAGS = (); }; };
+		95DAFA481BE5132600085EE6 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA471BE5132600085EE6 /* Type.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		95DAFA3D1BE4F77700085EE6 /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		95DAFA411BE4FA7D00085EE6 /* StringOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringOutputStream.swift; sourceTree = "<group>"; };
 		95DAFA431BE4FB2700085EE6 /* OutputStreamTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputStreamTypeExtensions.swift; sourceTree = "<group>"; };
+		95DAFA471BE5132600085EE6 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				95DAFA351BE4764B00085EE6 /* Cursor.swift */,
 				95DAFA3B1BE47F3300085EE6 /* CursorKind.swift */,
 				95DAFA371BE476A500085EE6 /* ChildVisitResult.swift */,
+				95DAFA471BE5132600085EE6 /* Type.swift */,
 				95DAFA391BE47C8F00085EE6 /* CXStringUtils.swift */,
 				95DAFA221BE4673400085EE6 /* objc2swift-Bridging-Header.h */,
 			);
@@ -197,6 +200,7 @@
 				95DAFA341BE4743D00085EE6 /* UnknownError.swift in Sources */,
 				95DAFA3C1BE47F3300085EE6 /* CursorKind.swift in Sources */,
 				95DAFA441BE4FB2700085EE6 /* OutputStreamTypeExtensions.swift in Sources */,
+				95DAFA481BE5132600085EE6 /* Type.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
