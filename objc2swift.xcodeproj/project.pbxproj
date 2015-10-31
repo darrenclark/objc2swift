@@ -22,6 +22,7 @@
 		95DAFA5C1BE519BC00085EE6 /* StringOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA531BE5199A00085EE6 /* StringOutputStream.swift */; settings = {ASSET_TAGS = (); }; };
 		95DAFA5F1BE51A0900085EE6 /* ASTNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA5E1BE51A0900085EE6 /* ASTNode.swift */; settings = {ASSET_TAGS = (); }; };
 		95DAFA611BE51B0200085EE6 /* FunctionArgDecl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA601BE51B0200085EE6 /* FunctionArgDecl.swift */; settings = {ASSET_TAGS = (); }; };
+		95DAFA631BE51FD500085EE6 /* CodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA621BE51FD500085EE6 /* CodeGenerator.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +62,7 @@
 		95DAFA531BE5199A00085EE6 /* StringOutputStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringOutputStream.swift; sourceTree = "<group>"; };
 		95DAFA5E1BE51A0900085EE6 /* ASTNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASTNode.swift; sourceTree = "<group>"; };
 		95DAFA601BE51B0200085EE6 /* FunctionArgDecl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionArgDecl.swift; sourceTree = "<group>"; };
+		95DAFA621BE51FD500085EE6 /* CodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			children = (
 				95DAFA521BE5199A00085EE6 /* OutputStreamTypeExtensions.swift */,
 				95DAFA531BE5199A00085EE6 /* StringOutputStream.swift */,
+				95DAFA621BE51FD500085EE6 /* CodeGenerator.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				95DAFA5C1BE519BC00085EE6 /* StringOutputStream.swift in Sources */,
 				95DAFA541BE519BC00085EE6 /* ChildVisitResult.swift in Sources */,
 				95DAFA581BE519BC00085EE6 /* Index.swift in Sources */,
+				95DAFA631BE51FD500085EE6 /* CodeGenerator.swift in Sources */,
 				95DAFA561BE519BC00085EE6 /* CursorKind.swift in Sources */,
 				95DAFA5B1BE519BC00085EE6 /* OutputStreamTypeExtensions.swift in Sources */,
 			);

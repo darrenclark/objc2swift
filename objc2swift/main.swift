@@ -17,7 +17,11 @@ do {
 	let converter = ASTConverter()
 	converter.convertTranslationUnit(tu)
 	
-	print(converter.nodes)
+	let outputStream = StringOutputStream()
+	let codeGenerator = CodeGenerator(outputStream: outputStream)
+	codeGenerator.writeAST(converter.nodes)
+	
+	print(outputStream.stringValue)
 }
 catch {
 	exit(EXIT_FAILURE)
