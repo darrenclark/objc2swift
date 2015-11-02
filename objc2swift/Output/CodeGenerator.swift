@@ -19,8 +19,21 @@ extension CodeGenerator {
 		case let .ClassImpl(name: name, children: children):
 			writeClass(name: name, children: children)
 			
-		case let .InstanceMethodDecl(name: name, returns: returns, args: arguments):
-			writeInstanceMethodDecl(name: name, returns: returns, arguments: arguments)
+		case let .InstanceMethodDecl(name: name, returns: returns, args: arguments, body: body):
+			writeInstanceMethodDecl(name: name, returns: returns, arguments: arguments, body: body)
+			
+		case let .CodeBlock(children: children):
+			writeCodeBlock(children: children)
+			
+		case let .Return(expression: expression):
+			insertIndent()
+			outputStream.write("return ")
+			writeNode(expression)
+			outputStream.write("\n")
+			
+		case let .IntegerLiteral(stringValue: stringValue):
+			outputStream.write(stringValue)
+			
 		}
 	}
 }
@@ -42,7 +55,7 @@ extension CodeGenerator {
 		
 	}
 	
-	func writeInstanceMethodDecl(name name: String, returns: String, arguments: [FunctionArgDecl]) {
+	func writeInstanceMethodDecl(name name: String, returns: String, arguments: [FunctionArgDecl], body: ASTNode) {
 		insertIndent()
 		outputStream.write("func \(name)(")
 		
@@ -57,7 +70,24 @@ extension CodeGenerator {
 		.joinWithSeparator(", ")
 		
 		outputStream.write(argumentsString)
-		outputStream.write(") -> \(returns) { }\n")
+		outputStream.write(") -> \(returns)")
+		
+		writeNode(body)
+		
+		outputStream.write("\n")
+	}
+	
+	func writeCodeBlock(children children: [ASTNode]) {
+		outputStream.write(" {\n")
+		indentLevel++
+		
+		for child in children {
+			writeNode(child)
+		}
+		
+		indentLevel--
+		insertIndent()
+		outputStream.write("}\n")
 	}
 }
 

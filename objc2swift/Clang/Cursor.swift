@@ -1,8 +1,10 @@
 struct Cursor {
 	let raw: CXCursor
+	let translationUnit: TranslationUnit
 	
-	init?(raw: CXCursor) {
+	init?(raw: CXCursor, translationUnit: TranslationUnit) {
 		self.raw = raw
+		self.translationUnit = translationUnit
 		if clang_Cursor_isNull(raw) != 0 {
 			return nil
 		}
@@ -22,6 +24,12 @@ extension Cursor {
 	
 	//MARK: -
 	
+	var extent: CXSourceRange {
+		return clang_getCursorExtent(raw)
+	}
+	
+	//MARK: -
+	
 	var type: Type {
 		return clang_getCursorType(raw)
 	}
@@ -37,8 +45,8 @@ extension Cursor {
 	
 	func visitChildren(block: (cursor: Cursor, parent: Cursor) -> ChildVisitResult) {
 		clang_visitChildrenWithBlock(raw) { rawCursor, rawParent in
-			let cursor = Cursor(raw: rawCursor)!
-			let parent = Cursor(raw: rawParent)!
+			let cursor = Cursor(raw: rawCursor, translationUnit: self.translationUnit)!
+			let parent = Cursor(raw: rawParent, translationUnit: self.translationUnit)!
 			
 			return block(cursor: cursor, parent: parent).rawValue
 		}

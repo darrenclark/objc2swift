@@ -30,7 +30,7 @@ extension ASTConverter {
 		return ASTNode.ClassImpl(name: cursor.spelling, children: children)
 	}
 	
-	func convertInstanceMethod(cursor: Cursor) -> ASTNode {
+	func convertInstanceMethod(cursor: Cursor) -> ASTNode? {
 		let segments = cursor.spelling.componentsSeparatedByString(":").filter { str in !str.isEmpty }
 		assert(segments.count >= 1)
 		
@@ -55,7 +55,12 @@ extension ASTConverter {
 			arguments = []
 		}
 		
-		return ASTNode.InstanceMethodDecl(name: name, returns: returns, args: arguments)
+		if let compoundStmt = cursor.firstChild(kind: .CompoundStmt), body = convertCode(compoundStmt) {
+			return .InstanceMethodDecl(name: name, returns: returns, args: arguments, body: body)
+		}
+		else {
+			return nil
+		}
 	}
 	
 	func readArguments(cursor: Cursor) -> [(name: String, type: String)] {
@@ -63,6 +68,31 @@ extension ASTConverter {
 			return child.kind == .ParmDecl
 		}.map { param in
 			return (param.spelling, param.type.spelling)
+		}
+	}
+	
+	func convertCode(cursor: Cursor) -> ASTNode? {
+		switch cursor.kind {
+		case .CompoundStmt:
+			let childNodes = cursor.children.map(convertCode).flatMap { node in node }
+			return .CodeBlock(children: childNodes)
+			
+		case .ReturnStmt:
+			if let first = cursor.children.first, node = convertCode(first) {
+				return .Return(expression: node)
+			}
+			else {
+				return nil
+			}
+			
+			
+		case .IntegerLiteral:
+			let tokens = Tokens(translationUnit: cursor.translationUnit, range: cursor.extent)
+			return .IntegerLiteral(stringValue: tokens.first!.spelling)
+			
+		default:
+			print("Unexpected kind: \(cursor.kind)")
+			return nil
 		}
 	}
 }

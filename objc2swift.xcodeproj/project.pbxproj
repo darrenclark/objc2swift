@@ -23,6 +23,8 @@
 		95DAFA5F1BE51A0900085EE6 /* ASTNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA5E1BE51A0900085EE6 /* ASTNode.swift */; settings = {ASSET_TAGS = (); }; };
 		95DAFA611BE51B0200085EE6 /* FunctionArgDecl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA601BE51B0200085EE6 /* FunctionArgDecl.swift */; settings = {ASSET_TAGS = (); }; };
 		95DAFA631BE51FD500085EE6 /* CodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA621BE51FD500085EE6 /* CodeGenerator.swift */; settings = {ASSET_TAGS = (); }; };
+		95DAFA671BE6F00500085EE6 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA661BE6F00500085EE6 /* Tokens.swift */; settings = {ASSET_TAGS = (); }; };
+		95DAFA691BE6F55100085EE6 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA681BE6F55100085EE6 /* Token.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +65,8 @@
 		95DAFA5E1BE51A0900085EE6 /* ASTNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASTNode.swift; sourceTree = "<group>"; };
 		95DAFA601BE51B0200085EE6 /* FunctionArgDecl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionArgDecl.swift; sourceTree = "<group>"; };
 		95DAFA621BE51FD500085EE6 /* CodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenerator.swift; sourceTree = "<group>"; };
+		95DAFA661BE6F00500085EE6 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
+		95DAFA681BE6F55100085EE6 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,8 @@
 				95DAFA4E1BE5199A00085EE6 /* Index.swift */,
 				95DAFA4F1BE5199A00085EE6 /* TranslationUnit.swift */,
 				95DAFA501BE5199A00085EE6 /* Type.swift */,
+				95DAFA661BE6F00500085EE6 /* Tokens.swift */,
+				95DAFA681BE6F55100085EE6 /* Token.swift */,
 			);
 			path = Clang;
 			sourceTree = "<group>";
@@ -233,9 +239,11 @@
 				95DAFA591BE519BC00085EE6 /* TranslationUnit.swift in Sources */,
 				95DAFA5C1BE519BC00085EE6 /* StringOutputStream.swift in Sources */,
 				95DAFA541BE519BC00085EE6 /* ChildVisitResult.swift in Sources */,
+				95DAFA671BE6F00500085EE6 /* Tokens.swift in Sources */,
 				95DAFA581BE519BC00085EE6 /* Index.swift in Sources */,
 				95DAFA631BE51FD500085EE6 /* CodeGenerator.swift in Sources */,
 				95DAFA561BE519BC00085EE6 /* CursorKind.swift in Sources */,
+				95DAFA691BE6F55100085EE6 /* Token.swift in Sources */,
 				95DAFA5B1BE519BC00085EE6 /* OutputStreamTypeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,7 +28,7 @@ class TranslationUnit {
 extension TranslationUnit {
 	
 	var cursor: Cursor {
-		return Cursor(raw: clang_getTranslationUnitCursor(raw))!
+		return Cursor(raw: clang_getTranslationUnitCursor(raw), translationUnit: self)!
 	}
 	
 }
