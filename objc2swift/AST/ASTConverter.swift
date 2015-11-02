@@ -35,7 +35,7 @@ extension ASTConverter {
 		assert(segments.count >= 1)
 		
 		let name = segments.first!
-		let returns = cursor.resultType.spelling
+		let returns = cursor.resultType.swiftType
 		let arguments: [FunctionArgDecl]
 		
 		let rawArgs = readArguments(cursor)
@@ -67,7 +67,7 @@ extension ASTConverter {
 		return cursor.children.filter { child in
 			return child.kind == .ParmDecl
 		}.map { param in
-			return (param.spelling, param.type.spelling)
+			return (param.spelling, param.type.swiftType)
 		}
 	}
 	
@@ -95,7 +95,7 @@ extension ASTConverter {
 		
 		case .VarDecl:
 			if let first = cursor.children.first, value = convertCode(first) {
-				return .VariableDecl(name: cursor.spelling, type: cursor.type.spelling, value: value)
+				return .VariableDecl(name: cursor.spelling, type: cursor.type.swiftType, value: value)
 			}
 			else {
 				return nil
