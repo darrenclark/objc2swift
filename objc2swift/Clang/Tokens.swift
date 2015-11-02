@@ -13,6 +13,10 @@ class Tokens: CollectionType {
 		self.tokens = UnsafeBufferPointer(start: tokens, count: Int(numTokens))
 	}
 	
+	convenience init(cursor: Cursor) {
+		self.init(translationUnit: cursor.translationUnit, range: cursor.extent)
+	}
+	
 	deinit {
 		clang_disposeTokens(translationUnit.raw, UnsafeMutablePointer(tokens.baseAddress), UInt32(tokens.count))
 	}
@@ -34,5 +38,12 @@ extension Tokens: Indexable {
 		else {
 			preconditionFailure("Out of bounds")
 		}
+	}
+}
+
+extension Tokens: CustomStringConvertible {
+	var description: String {
+		let spellings = map { token in token.spelling } .joinWithSeparator(" ")
+		return "Tokens: [\(spellings)]"
 	}
 }

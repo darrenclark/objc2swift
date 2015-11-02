@@ -42,6 +42,19 @@ extension CodeGenerator {
 			
 		case let .ObjCMessage(target: target, selector: selector):
 			outputStream.write("\(target).\(selector)()")
+			
+		case let .BinaryOperator(op: op, lhs: lhs, rhs: rhs):
+			writeNode(lhs)
+			outputStream.write(" \(op) ")
+			writeNode(rhs)
+			
+		case let .VariableRef(name: name):
+			outputStream.write(name)
+		
+		case let .Parenthesis(inner: inner):
+			outputStream.write("(")
+			writeNode(inner)
+			outputStream.write(")")
 		}
 	}
 }

@@ -7,4 +7,7 @@ indirect enum ASTNode {
 	case IntegerLiteral(stringValue: String)
 	case VariableDecl(name: String, type: String, value: ASTNode)
 	case ObjCMessage(target: String, selector: String)
+	case BinaryOperator(op: String, lhs: ASTNode, rhs: ASTNode)
+	case VariableRef(name: String)
+	case Parenthesis(inner: ASTNode)
 }

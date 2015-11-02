@@ -113,6 +113,41 @@ extension ASTConverter {
 			let selector = cursor.spelling
 			
 			return .ObjCMessage(target: target, selector: selector)
+		
+		case .BinaryOperator:
+			let children = cursor.children
+			guard children.count == 2 else {
+				print("Didn't find lhs & rhs for BinaryOperator")
+				return nil
+			}
+			
+			let lhsCursor = children[0]
+			let rhsCursor = children[1]
+			
+			// the operator (ie. == or *) ends up being the last token on the lhs
+			if let op = Tokens(cursor: lhsCursor).last, lhs = convertCode(lhsCursor), rhs = convertCode(rhsCursor) {
+				return .BinaryOperator(op: op.spelling, lhs: lhs, rhs: rhs)
+			}
+			else {
+				return nil
+			}
+		
+		case .FirstExpr:
+			guard let firstChild = cursor.children.first else {
+				print("FirstExpr didn't have a child")
+				return nil
+			}
+			return convertCode(firstChild)
+			
+		case .ParenExpr:
+			guard let firstChild = cursor.children.first, inner = convertCode(firstChild) else {
+				print("Couldn't parse inner expression of ParenExpr")
+				return nil
+			}
+			return .Parenthesis(inner: inner)
+		
+		case .DeclRefExpr:
+			return .VariableRef(name: cursor.spelling)
 			
 		default:
 			print("Unexpected kind: \(cursor.kind)")
