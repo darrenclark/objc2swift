@@ -89,6 +89,30 @@ extension ASTConverter {
 		case .IntegerLiteral:
 			let tokens = Tokens(translationUnit: cursor.translationUnit, range: cursor.extent)
 			return .IntegerLiteral(stringValue: tokens.first!.spelling)
+		
+		case .DeclStmt:
+			return convertCode(cursor.children.first!)
+		
+		case .VarDecl:
+			if let first = cursor.children.first, value = convertCode(first) {
+				return .VariableDecl(name: cursor.spelling, type: cursor.type.spelling, value: value)
+			}
+			else {
+				return nil
+			}
+			
+		case .ObjCMessageExpr:
+			guard let firstChild = cursor.children.first where firstChild.kind == .FirstExpr else {
+				print("ObjCMessageExpr - FirstExpr not found")
+				return nil
+			}
+			guard let target = firstChild.children.first?.spelling else {
+				return nil
+			}
+			
+			let selector = cursor.spelling
+			
+			return .ObjCMessage(target: target, selector: selector)
 			
 		default:
 			print("Unexpected kind: \(cursor.kind)")

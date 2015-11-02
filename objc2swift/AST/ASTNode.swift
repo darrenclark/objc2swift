@@ -5,4 +5,6 @@ indirect enum ASTNode {
 	case CodeBlock(children: [ASTNode])
 	case Return(expression: ASTNode)
 	case IntegerLiteral(stringValue: String)
+	case VariableDecl(name: String, type: String, value: ASTNode)
+	case ObjCMessage(target: String, selector: String)
 }

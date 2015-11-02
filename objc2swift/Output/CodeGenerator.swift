@@ -34,6 +34,14 @@ extension CodeGenerator {
 		case let .IntegerLiteral(stringValue: stringValue):
 			outputStream.write(stringValue)
 			
+		case let .VariableDecl(name: name, type: type, value: value):
+			insertIndent()
+			outputStream.write("var \(name): \(type) = ")
+			writeNode(value)
+			outputStream.write("\n")
+			
+		case let .ObjCMessage(target: target, selector: selector):
+			outputStream.write("\(target).\(selector)()")
 		}
 	}
 }
