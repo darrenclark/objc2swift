@@ -8,7 +8,7 @@ class TranslationUnit {
 		
 		raw = clang_createTranslationUnitFromSourceFile(
 			index.raw,
-			file,
+			path,
 			0, nil,
 			0, nil
 		)
