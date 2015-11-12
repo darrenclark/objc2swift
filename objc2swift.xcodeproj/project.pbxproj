@@ -46,6 +46,8 @@
 		95DAFA671BE6F00500085EE6 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA661BE6F00500085EE6 /* Tokens.swift */; };
 		95DAFA691BE6F55100085EE6 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA681BE6F55100085EE6 /* Token.swift */; };
 		95DAFA6B1BE7004C00085EE6 /* CXSourceRangeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DAFA6A1BE7004C00085EE6 /* CXSourceRangeUtils.swift */; };
+		95EFBAFE1BF403A900F8A856 /* SourceCompareTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EFBAFD1BF403A900F8A856 /* SourceCompareTestCase.swift */; };
+		95EFBB0F1BF4129100F8A856 /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EFBB0E1BF4129100F8A856 /* Basic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +203,10 @@
 		95DAFA661BE6F00500085EE6 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		95DAFA681BE6F55100085EE6 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		95DAFA6A1BE7004C00085EE6 /* CXSourceRangeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXSourceRangeUtils.swift; sourceTree = "<group>"; };
+		95EFBAFD1BF403A900F8A856 /* SourceCompareTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceCompareTestCase.swift; sourceTree = "<group>"; };
+		95EFBB0E1BF4129100F8A856 /* Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
+		95EFBB111BF4138F00F8A856 /* Basic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Basic.m; sourceTree = "<group>"; };
+		95EFBB121BF4138F00F8A856 /* Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +237,9 @@
 				95D836731BE878B000608EAF /* Quick.xcodeproj */,
 				95D8365E1BE878A900608EAF /* Nimble.xcodeproj */,
 				95D836481BE8754800608EAF /* Info.plist */,
+				95EFBAFD1BF403A900F8A856 /* SourceCompareTestCase.swift */,
+				95EFBB0E1BF4129100F8A856 /* Basic.swift */,
+				95EFBB101BF4130400F8A856 /* TestFiles */,
 			);
 			path = objc2swiftTests;
 			sourceTree = "<group>";
@@ -357,6 +366,15 @@
 			path = AST;
 			sourceTree = "<group>";
 		};
+		95EFBB101BF4130400F8A856 /* TestFiles */ = {
+			isa = PBXGroup;
+			children = (
+				95EFBB111BF4138F00F8A856 /* Basic.m */,
+				95EFBB121BF4138F00F8A856 /* Basic.swift */,
+			);
+			path = TestFiles;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -367,6 +385,7 @@
 				95D836401BE8754800608EAF /* Sources */,
 				95D836411BE8754800608EAF /* Frameworks */,
 				95D836421BE8754800608EAF /* Resources */,
+				95EFBB131BF413B000F8A856 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -558,6 +577,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		95EFBB131BF413B000F8A856 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -v \"$PROJECT_DIR/objc2swiftTests/TestFiles/\"*.{m,swift} \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		95D836401BE8754800608EAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -565,6 +600,7 @@
 			files = (
 				95D8364F1BE876FC00608EAF /* CXStringUtils.swift in Sources */,
 				95D836511BE876FC00608EAF /* Index.swift in Sources */,
+				95EFBB0F1BF4129100F8A856 /* Basic.swift in Sources */,
 				95D836581BE876FC00608EAF /* FunctionArgDecl.swift in Sources */,
 				95D836541BE876FC00608EAF /* Tokens.swift in Sources */,
 				95D8364C1BE876FC00608EAF /* ChildVisitResult.swift in Sources */,
@@ -579,6 +615,7 @@
 				95D836591BE876FC00608EAF /* OutputStreamTypeExtensions.swift in Sources */,
 				95D8365B1BE876FC00608EAF /* CodeGenerator.swift in Sources */,
 				95D836531BE876FC00608EAF /* Type.swift in Sources */,
+				95EFBAFE1BF403A900F8A856 /* SourceCompareTestCase.swift in Sources */,
 				95D836571BE876FC00608EAF /* ASTConverter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
