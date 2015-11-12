@@ -326,7 +326,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -v \"$PROJECT_DIR/objc2swiftTests/TestFiles/\"*.{m,swift} \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"";
+			shellScript = "mkdir -p \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\n\ncp -v \"$PROJECT_DIR/objc2swiftTests/TestFiles/\"*.{m,swift} \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
