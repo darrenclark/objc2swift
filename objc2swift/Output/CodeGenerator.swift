@@ -1,84 +1,86 @@
+import Foundation
+
 class CodeGenerator {
-	var outputStream: OutputStreamType
+	var outputStream: OutputStream
 	var indentLevel = 0
 	
-	init(outputStream: OutputStreamType) {
+	init(outputStream: OutputStream) {
 		self.outputStream = outputStream
 	}
 }
 
 extension CodeGenerator {
-	func writeAST(nodes: [ASTNode]) {
+	func writeAST(_ nodes: [ASTNode]) {
 		for node in nodes {
 			writeNode(node)
 		}
 	}
 	
-	func writeNode(node: ASTNode) {
+	func writeNode(_ node: ASTNode) {
 		switch node {
-		case let .ClassImpl(name: name, children: children):
+		case let .classImpl(name: name, children: children):
 			writeClass(name: name, children: children)
 			
-		case let .InstanceMethodDecl(name: name, returns: returns, args: arguments, body: body):
+		case let .instanceMethodDecl(name: name, returns: returns, args: arguments, body: body):
 			writeInstanceMethodDecl(name: name, returns: returns, arguments: arguments, body: body)
 			
-		case let .CodeBlock(children: children):
+		case let .codeBlock(children: children):
 			writeCodeBlock(children: children)
 			
-		case let .Return(expression: expression):
+		case let .return(expression: expression):
 			insertIndent()
-			outputStream.write("return ")
+			outputStream.write("return ", maxLength: [UInt8]("return ".utf8).count)
 			writeNode(expression)
-			outputStream.write("\n")
+      outputStream.write("\n", maxLength: [UInt8]("\n".utf8).count)
 			
-		case let .IntegerLiteral(stringValue: stringValue):
-			outputStream.write(stringValue)
+		case let .integerLiteral(stringValue: stringValue):
+			outputStream.write(stringValue, maxLength: [UInt8](stringValue.utf8).count)
 			
-		case let .VariableDecl(name: name, type: type, value: value):
+		case let .variableDecl(name: name, type: type, value: value):
 			insertIndent()
-			outputStream.write("var \(name): \(type) = ")
+			outputStream.write("var \(name): \(type) = ", maxLength: [UInt8]("var \(name): \(type) = ".utf8).count)
 			writeNode(value)
-			outputStream.write("\n")
+			outputStream.write("\n", maxLength: [UInt8]("\n".utf8).count)
 			
-		case let .ObjCMessage(target: target, selector: selector):
-			outputStream.write("\(target).\(selector)()")
+		case let .objCMessage(target: target, selector: selector):
+			outputStream.write("\(target).\(selector)()", maxLength: [UInt8]("\(target).\(selector)()".utf8).count)
 			
-		case let .BinaryOperator(op: op, lhs: lhs, rhs: rhs):
+		case let .binaryOperator(op: op, lhs: lhs, rhs: rhs):
 			writeNode(lhs)
-			outputStream.write(" \(op) ")
+			outputStream.write(" \(op) ", maxLength: [UInt8](" \(op) ".utf8).count)
 			writeNode(rhs)
 			
-		case let .VariableRef(name: name):
-			outputStream.write(name)
+		case let .variableRef(name: name):
+			outputStream.write(name, maxLength: [UInt8](name.utf8).count)
 		
-		case let .Parenthesis(inner: inner):
-			outputStream.write("(")
+		case let .parenthesis(inner: inner):
+			outputStream.write("(", maxLength: [UInt8]("(".utf8).count)
 			writeNode(inner)
-			outputStream.write(")")
+			outputStream.write(")", maxLength: [UInt8](")".utf8).count)
 		}
 	}
 }
 
 extension CodeGenerator {
-	func writeClass(name name: String, children: [ASTNode]) {
+	func writeClass(name: String, children: [ASTNode]) {
 		insertIndent()
-		outputStream.write("class \(name) {\n")
+		outputStream.write("class \(name) {\n", maxLength: [UInt8]("class \(name) {\n".utf8).count)
 		
-		indentLevel++
+		indentLevel += 1
 		
 		for node in children {
 			writeNode(node)
 		}
 		
-		indentLevel--
+		indentLevel -= 1
 		
-		outputStream.write("}\n\n")
+		outputStream.write("}\n\n", maxLength: [UInt8]("}\n\n".utf8).count)
 		
 	}
 	
-	func writeInstanceMethodDecl(name name: String, returns: String, arguments: [FunctionArgDecl], body: ASTNode) {
+	func writeInstanceMethodDecl(name: String, returns: String, arguments: [FunctionArgDecl], body: ASTNode) {
 		insertIndent()
-		outputStream.write("func \(name)(")
+		outputStream.write("func \(name)(", maxLength: [UInt8]("func \(name)(".utf8).count)
 		
 		let argumentsString = arguments.map { arg -> String in
 			if let label = arg.label {
@@ -88,34 +90,34 @@ extension CodeGenerator {
 				return "\(arg.name): \(arg.type)"
 			}
 		}
-		.joinWithSeparator(", ")
+		.joined(separator: ", ")
 		
-		outputStream.write(argumentsString)
-		outputStream.write(") -> \(returns)")
+		outputStream.write(argumentsString, maxLength: [UInt8](argumentsString.utf8).count)
+		outputStream.write(") -> \(returns)", maxLength: [UInt8](") -> \(returns)".utf8).count)
 		
 		writeNode(body)
 		
-		outputStream.write("\n")
+		outputStream.write("\n", maxLength: [UInt8]("\n".utf8).count)
 	}
 	
-	func writeCodeBlock(children children: [ASTNode]) {
-		outputStream.write(" {\n")
-		indentLevel++
+	func writeCodeBlock(children: [ASTNode]) {
+		outputStream.write(" {\n", maxLength: [UInt8](" {\n".utf8).count)
+		indentLevel += 1
 		
 		for child in children {
 			writeNode(child)
 		}
 		
-		indentLevel--
+		indentLevel -= 1
 		insertIndent()
-		outputStream.write("}\n")
+		outputStream.write("}\n", maxLength: [UInt8]("}\n".utf8).count)
 	}
 }
 
 extension CodeGenerator {
 	func insertIndent() {
 		for _ in 0..<indentLevel {
-			outputStream.write("\t")
+			outputStream.write("\t", maxLength: [UInt8]("\t".utf8).count)
 		}
 	}
 }

@@ -43,12 +43,12 @@ extension Cursor {
 //MARK: - Traversal
 extension Cursor {
 	
-	func visitChildren(block: (cursor: Cursor, parent: Cursor) -> ChildVisitResult) {
+	func visitChildren(_ block: @escaping (_ cursor: Cursor, _ parent: Cursor) -> ChildVisitResult) {
 		clang_visitChildrenWithBlock(raw) { rawCursor, rawParent in
 			let cursor = Cursor(raw: rawCursor, translationUnit: self.translationUnit)!
 			let parent = Cursor(raw: rawParent, translationUnit: self.translationUnit)!
 			
-			return block(cursor: cursor, parent: parent).rawValue
+			return block(cursor, parent).rawValue
 		}
 	}
 	
@@ -56,14 +56,14 @@ extension Cursor {
 		var result = [Cursor]()
 		visitChildren { child, _ in
 			result.append(child)
-			return .Continue
+			return .continue
 		}
 		return result
 	}
 	
-	func firstChild(kind kind: CursorKind) -> Cursor? {
+	func firstChild(kind: CursorKind) -> Cursor? {
 		let children = self.children
-		let index = children.indexOf { cursor in cursor.kind == kind }
+		let index = children.index { cursor in cursor.kind == kind }
 		return index.map { index in children[index] }
 	}
 	

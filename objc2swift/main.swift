@@ -8,7 +8,7 @@
 
 import Foundation
 
-let file = Process.arguments[1]
+let file = CommandLine.arguments[1]
 
 let index = Index(excludeDeclarationsFromPCH: true, displayDiagnostics: false)
 do {
