@@ -1,7 +1,9 @@
-class StringOutputStream: OutputStreamType {
-	private(set) var stringValue = ""
+import Foundation
+
+class StringOutputStream: OutputStream {
+	fileprivate(set) var stringValue = ""
 	
-	func write(string: String) {
+	func write(_ string: String) {
 		stringValue += string
 	}
 }

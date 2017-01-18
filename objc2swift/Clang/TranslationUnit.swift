@@ -1,5 +1,5 @@
 class TranslationUnit {
-	let raw: CXTranslationUnit
+	let raw: CXTranslationUnit?
 	let index: Index
 	
 	

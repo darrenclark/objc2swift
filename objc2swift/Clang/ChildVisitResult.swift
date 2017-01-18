@@ -1,24 +1,24 @@
 enum ChildVisitResult {
-	case Break
-	case Continue
-	case Recurse
+	case `break`
+	case `continue`
+	case recurse
 }
 
 extension ChildVisitResult: RawRepresentable {
 	init?(rawValue: CXChildVisitResult) {
 		switch rawValue {
-		case CXChildVisit_Break: self = .Break
-		case CXChildVisit_Continue: self = .Continue
-		case CXChildVisit_Recurse: self = .Recurse
+		case CXChildVisit_Break: self = .break
+		case CXChildVisit_Continue: self = .continue
+		case CXChildVisit_Recurse: self = .recurse
 		default: return nil
 		}
 	}
 	
 	var rawValue: CXChildVisitResult {
 		switch self {
-		case .Break: return CXChildVisit_Break
-		case .Continue: return CXChildVisit_Continue
-		case .Recurse: return CXChildVisit_Recurse
+		case .break: return CXChildVisit_Break
+		case .continue: return CXChildVisit_Continue
+		case .recurse: return CXChildVisit_Recurse
 		}
 	}
 }

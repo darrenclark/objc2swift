@@ -6,8 +6,8 @@ class SourceCompareTestCase: XCTestCase {
 		preconditionFailure("Override in subclass")
 	}
 	
-	var bundle: NSBundle {
-		return NSBundle(forClass: self.dynamicType)
+	var bundle: Bundle {
+		return Bundle(for: type(of: self))
 	}
 	
 	//MARK: -
@@ -15,7 +15,7 @@ class SourceCompareTestCase: XCTestCase {
 	func test() {
 		do {
 			let convertedSwift = try convertObjectiveCFile()
-			guard let referenceSwiftPath = bundle.pathForResource(baseFilename, ofType: "swift") else {
+			guard let referenceSwiftPath = bundle.path(forResource: baseFilename, ofType: "swift") else {
 				XCTFail("Not found: \(baseFilename).swift")
 				return
 			}
@@ -35,17 +35,17 @@ class SourceCompareTestCase: XCTestCase {
 		}
 	}
 	
-	override func runTest() {
+	override func run() {
 		// Only run subclasses
-		if self.dynamicType != SourceCompareTestCase.self {
-			super.runTest()
+		if type(of: self) != SourceCompareTestCase.self {
+			super.run()
 		}
 	}
 	
 	//MARK: -
 	
 	func convertObjectiveCFile() throws -> String {
-		guard let path = bundle.pathForResource(baseFilename, ofType: "m") else {
+		guard let path = bundle.path(forResource: baseFilename, ofType: "m") else {
 			XCTFail("Not found: \(baseFilename).m")
 			throw NSError(domain: "NotFound", code: 0, userInfo: nil)
 		}
@@ -64,25 +64,25 @@ class SourceCompareTestCase: XCTestCase {
 		return outputStream.stringValue
 	}
 	
-	func shellExec(path path: String, args: [String], stdin: String) -> (exitCode: Int, stdout: String) {
-		let task = NSTask()
+	func shellExec(path: String, args: [String], stdin: String) -> (exitCode: Int, stdout: String) {
+		let task = Process()
 		task.launchPath = path
 		task.arguments = args
 		
-		let stdinPipe = NSPipe()
+		let stdinPipe = Pipe()
 		task.standardInput = stdinPipe
 		
-		let stdinData = stdin.dataUsingEncoding(NSUTF8StringEncoding)!
-		stdinPipe.fileHandleForWriting.writeData(stdinData)
+		let stdinData = stdin.data(using: String.Encoding.utf8)!
+		stdinPipe.fileHandleForWriting.write(stdinData)
 		stdinPipe.fileHandleForWriting.closeFile()
 		
-		let stdoutPipe = NSPipe()
+		let stdoutPipe = Pipe()
 		task.standardOutput = stdoutPipe
 		
 		task.launch()
 		task.waitUntilExit()
 		
-		let stdoutString = NSString(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+		let stdoutString = NSString(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: String.Encoding.utf8.rawValue)!
 		let exitCode = Int(task.terminationStatus)
 		
 		return (exitCode, stdoutString as String)

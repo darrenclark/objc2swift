@@ -1,1 +1,1 @@
-struct UnknownError: ErrorType {}
+struct UnknownError: Error {}
